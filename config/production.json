@@ -1,5 +1,5 @@
 {
-    "dbString": "mongodb://localhost/practice",
+    "dbString": "mongodb+srv://rosettapebble:XU5IX9i31hDYBJRh@cluster0.fe7ef.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     "jwtsecret": "mGVVqEM87XSQaWo0r9O6yzHiND1HSpXB9ruJvxlg8JCnd0QBmmpfK2XRrm0QWqdV",
     "session_secret": "GL1lgDpfOLze5PHFdiN4V0xlLoqxsVNXVafhchhSHrzUwsN3Pz2qMu1sgSiY9ihQ",
     "mail": {
