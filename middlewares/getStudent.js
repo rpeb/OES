@@ -9,13 +9,13 @@ module.exports = function getStudent(req, res, next) {
     new formidable.IncomingForm()
       .parse(req)
       .on("fileBegin", (name, file) => {
-        file.path = global.appRoot + "\\uploads\\" + file.name;
+        file.path = global.appRoot + "/uploads/" + file.name;
       })
       .on("file", function (name, file) {
         // console.log("Got file:", file.name);
         let worksheets = {};
         const workbook = xlsx.readFile(
-          global.appRoot + "\\uploads\\" + file.name
+          global.appRoot + "/uploads/" + file.name
         );
         for (const sheetName of workbook.SheetNames) {
           worksheets[sheetName] = xlsx.utils.sheet_to_json(
