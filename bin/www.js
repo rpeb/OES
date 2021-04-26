@@ -1,3 +1,5 @@
+const app = require('../app');
+const server = app.listen();
 server.on("listening", onListening);
 
 /**
