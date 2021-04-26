@@ -26,7 +26,7 @@
       <div class="row">
         <div class="col-3">
           <!-- <h4>Welcome <%- name %></h4> -->
-          <h4>Welcome, John Doe</h4>
+          <h4>Welcome, <strong><%- name %></strong></h4>
           <!-- <h5><%- sid %></h5> -->
         </div>
         <div class="offset-6 col-3">
@@ -513,6 +513,61 @@
           document.getElementById("demo").innerHTML = "EXPIRED";
         }
       }, 1000);
+
+      var c=0;
+      window.addEventListener("blur", (event)=>{
+        c++;
+        if(c==1){
+          alert("WARNING:You have navigated outside of the test window!!")
+        }
+        else if(c==2){
+          alert("WARNING:If you leave the test window again your test will be automatically submitted!!! doraisos?")
+        }
+        else{
+          // console.log("inactive");
+          alert("oversmart tor teh beshi ami bujjhos ni chandu??")
+          autoSubmitTest();
+        }
+        
+      })
+      async function autoSubmitTest() {
+        const selectedRadioButton = document.querySelector(
+          'input[name="customRadio"]:checked'
+        );
+        const selectedOption = selectedRadioButton
+          ? selectedRadioButton.value
+          : "-1";
+        if (selectedOption !== "-1") {
+          document.getElementsByName("q_buttons")[
+            counter - 1
+          ].style.backgroundColor = "#5cb85c";
+          document.getElementsByName("q_buttons")[counter - 1].style.color =
+            "white";
+        }
+        console.log("selected option submitTest(): ", selectedOption);
+        let qid = "";
+        if (counter === 1) {
+          qid = sessionStorage.getItem("qid_zero");
+        } else {
+          qid = sessionStorage.getItem("next_qid");
+        }
+        const result = await fetch(`/exam/submit/${eid}/${sid}`, {
+          method: "POST",
+          body: JSON.stringify({
+            qid: qid,
+            selectedOption,
+            counter: counter,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .catch((err) => console.log(err.message));
+        // window.location.href = "/exam/"+eid+"/"+sid+"/getResult";
+        alert(result.message);
+        window.location.href = "/student/home";
+    }
     </script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

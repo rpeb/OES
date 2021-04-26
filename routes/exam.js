@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { isStudent, isAuth } = require("../middlewares/auth");
 const Exam = require("../models/exam");
 const Answer = require("../models/answers");
+const User = require("../models/user");
 
 router.get("/:examid/:sid", isStudent, async (req, res) => {
   try {
@@ -63,7 +64,7 @@ router.get("/:examid/:sid/start", isStudent, async (req, res) => {
 
     res.render("exam/exampage", {
       num_questions,
-      name: req.user.first_name,
+      name: req.user.first_name + " " + req.user.last_name,
       sid: req.params.sid,
       eid: req.params.examid,
       num_options,

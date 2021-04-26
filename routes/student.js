@@ -52,9 +52,11 @@ router.get("/dashboard", isStudent, async (req, res) => {
     const exams = await Exam.find({
       "exam_details.exam_date": { $gte: Date.now().toString() },
     }).find({ students: { $elemMatch: { email: req.user.email } } });
-    let student = await User.findOne({ email: req.user.email });
+    let student = req.user;
     let student_id = student._id;
-    let student_name = student.first_name + " " + student.last_name;
+    let student_name = student.first_name;
+    if (!student.last_name) student_name = student_name;
+    else student_name += " " + student.last_name;
     console.log("student name", student_name);
     const fields = Object.keys(exams[0]["exam_details"]);
     let idx = fields.indexOf("$init");
