@@ -24,64 +24,6 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-// const adminRedirect = {
-//   failureRedirect: "/login-failure",
-//   successRedirect: "/admin/dashboard",
-// };
-
-// router.get("/login", (req, res) => {
-//   res.render("admin/login");
-// });
-
-// // /admin/login
-
-// router.post("/login", passport.authenticate("local", adminRedirect));
-
-// router.get("/dashboard", isAdmin, (req, res) => {
-//   res.render("admin/dashboard");
-// });
-
-// function stringToDate(dateString) {
-//   let a = dateString.split("-");
-//   return new Date(
-//     a[0],
-//     a[1] - 1,
-//     new Date(a[0], a[1] - 1, a[2]).getDate() + 1,
-//     05,
-//     29
-//   );
-// }
-
-// function timestringToDate(timeString, dateString) {
-//   const a = timeString.split(":");
-//   const b = dateString.split("-");
-//   return new Date(b[0], b[1] - 1, b[2], a[0], a[1]);
-// }
-
-// router.get("/create-exam/exam-details", isAdmin, (req, res) => {
-//   res.render("admin/createExam");
-// });
-
-// router.post("/create-exam/exam-details", isAdmin, async (req, res) => {
-//   const fields = req.body;
-//   const dateString = fields.exam_date;
-//   fields.exam_date = stringToDate(fields.exam_date);
-//   fields.start_time = timestringToDate(fields.start_time, dateString);
-//   fields.end_time = timestringToDate(fields.end_time, dateString);
-//   try {
-//     const result = await Exam.updateOne(
-//       { _id: localStorage.exam_id },
-//       { $set: { exam_details: fields } }
-//     );
-//     res.send({
-//       message: "Exam Details Added!",
-//       data: localStorage.exam_id,
-//       redirectionLink: "/student/dashboard",
-//     });
-//   } catch (err) {
-//     console.log(err.message);
-//   }
-// });
 
 router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
   try {
@@ -96,9 +38,7 @@ router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
     fields.exam_date = stringToDate(fields.exam_date);
     fields.start_time = timestringToDate(fields.start_time, dateString);
     fields.end_time = timestringToDate(fields.end_time, dateString);
-    // let result = [],
-    //   ans = [],
-    //   tmp = {};
+    
     let ans = []
     for (var i = 0; i < num_questions; ++i) {
       let tmp = [];
@@ -115,18 +55,7 @@ router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
         points: question_data[i].points,
       });
     }
-    // tmp = {
-    //   answers: ans,
-    //   sid: "0",
-    //   present: false,
-    //   points_scored: 0,
-    //   status: "Fail",
-    // };
-    // for (var i = 0; i < student_data.length; ++i) {
-    //   result.push(tmp);
-    // }
-    // console.log(req.body.fields);
-
+    
     let exam = new Exam({
       exam_details: fields,
       students: student_data,
@@ -218,12 +147,6 @@ router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
   }
 });
 
-// router.get("/addStudent", (req, res) => {
-//   res.render("admin/addStudent");
-// });
-
-// module.exports = router;
-
 const adminRedirect = {
   failureRedirect: "/login-failure",
   successRedirect: "/admin/dashboard",
@@ -286,61 +209,5 @@ router.post("/create-exam/exam-details", isAdmin, async (req, res) => {
     console.log(err.message);
   }
 });
-
-// router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
-//   try {
-//     const data = req.body.worksheets;
-//     const { fields } = req.body;
-//     const dateString = fields.exam_date;
-//     fields.exam_date = stringToDate(fields.exam_date);
-//     fields.start_time = timestringToDate(fields.start_time, dateString);
-//     fields.end_time = timestringToDate(fields.end_time, dateString);
-//     const student_data = Object.values(data[0])[0];
-//     const question_data = Object.values(data[1])[0];
-//     const num_questions = question_data.length;
-
-//     let ans = [];
-//     for (var i = 0; i < num_questions; ++i) {
-//       let tmp = [];
-//       for (var j = 0; j < req.body.fields.num_options; ++j) {
-//         tmp.push(question_data[i][`option${j + 1}`]);
-//         delete question_data[i][`option${j + 1}`];
-//       }
-//       question_data[i].options = [...tmp];
-
-//       ans.push({
-//         qid: "-1",
-//         selectedOption: "-1",
-//         correct_option: question_data[i].correct_option,
-//         points: question_data[i].points,
-//       });
-//     }
-
-//     // console.log(req.body.fields);
-
-//     const exam = new Exam({
-//       exam_details: fields,
-//       students: student_data,
-//       questions: question_data,
-//     });
-//     const result = await exam.save();
-//     // create an answer document with one object per question in the answer array
-//     /*
-//       {
-//         "eid": result._id, "sid": "0", "answers": [{qid: "0", selectedOption: "0"}];
-//       }
-//     */
-//     let answer = new Answer({
-//       eid: result._id,
-//       sid: "0",
-//       answers: ans,
-//     });
-//     answer = answer.save();
-//     localStorage.exam_id = result._id;
-//     res.redirect("/commonLogin");
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
 
 module.exports = router;
