@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/stylesheets/studentDashboard.css">
+    <title><%- title %></title>
+  </head>
+  <body>
+    <!-- loop over fields array -->
+    <!-- thead -> all the elements -->
+    <!-- loop over exams -->
+    <!-- loop over exams[i]['exam_details'] -->
+    <!-- tbody -> all the values -->
+    <div class="container pt-3 my-5 text-center exam_table">
+      <h3>Results for: <%- exam_name %> Examination</h3>
+      <table class="table">
+        <thead class="thead">
+          <tr>
+            <% for(var i = 0; i < student_fields.length; ++i) { %>
+            <th scope="col"><%- student_fields[i] %></th>
+            <% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i < students.length; ++i) { %>
+          <tr>
+            <td><%- i+1 %></td>
+            <td><%- students[i].first_name %> <%- students[i].last_name %></td>
+            <td><%- students[i].email %></td>
+            <% for (var j = 0; j < answer_doc.length; ++j) { %> <% if
+            (students[i].email === answer_doc[j].email) { %> <% if
+            (answer_doc[j].present) { %>
+            <td>YES</td>
+            <% } else { %>
+              <td>NO</td>
+              <% } %>
+              <td><%- answer_doc[j].points_scored %></td>
+              <td><%- answer_doc[j].status %></td>
+              <td><a href="results/<%- answer_doc[j]['sid'] %>">View Result</a></td>
+              <% } %> <% } %>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    
+  </body>
+</html>
+
+<!-- 
+  students array -> contains email a@a.com
+  answers array -> contains email
+  const answer_doc = answer.find(a@a.com, eid: eid)
+  answer_doc.point_scored
+  answer_doc.sid,
+  answer_doc.status
+ -->

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+    integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="/stylesheets/studentDashboard.css">
+  <title>
+    <%- title %>
+  </title>
+</head>
+
+<body>
+  <!-- loop over fields array -->
+  <!-- thead -> all the elements -->
+  <!-- loop over exams -->
+  <!-- loop over exams[i]['exam_details'] -->
+  <!-- tbody -> all the values -->
+  <div class="container mt-3 text-center table_head">
+    <p><strong>Name: <em>
+          <%- teacher_name %>
+        </em></strong></p>
+    <p> <strong>id: <em>
+          <%- teacher_id %>
+    </em></strong></p>
+  </div>
+  <div class="container pt-3 my-5 text-center exam_table">
+    <table class="table">
+      <thead class="thead">
+        <tr>
+          <th>S.No.</th>
+          <% for(var i=0; i < fields.length-1; ++i) { %>
+            <th scope="col">
+              <%- fields[i] %>
+            </th>
+            <% } %>
+              <th scope="col">See Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- "s.no", "name", "email", "points_scored", "status", "details" -->
+        <% for(var i=0; i < examData.length; ++i) { %>
+          <tr>
+            <td>
+              <%- i+1 %>
+            </td>
+            <% for (var j=0; j < (examData[i].exam).length-1; ++j) { %>
+              <td>
+                <%- (examData[i].exam)[j] %>
+              </td>
+              <% } %>
+                <td><a href="pastExams/<%- examData[i]['_id'] %>/results">See Results</a></td>
+          </tr>
+          <% } %>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+
+</html>

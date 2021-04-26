@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+      integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.8.1/html2pdf.bundle.min.js"
+      integrity="sha512vDKWohFHe2vkVWXHp3tKvIxxXg0pJxeid5eo+UjdjME3DBFBn2F8yWOE0XmiFcFbXxrEOR1JriWEno5Ckpn15A=="
+      crossorigin="anonymous"
+    ></script>
+    <title>RESULT PAGE</title>
+    <style>
+      .first-row {
+        border: 3px solid blue;
+      }
+  
+      #printButton {
+        width: 140px;
+        height: 45px;
+        font-family: "Roboto", sans-serif;
+        font-size: 12px;
+        letter-spacing: 2.5px;
+        font-weight: 500;
+        text-transform: uppercase;
+        color: #fff;
+        background-color: #1ab2e0;
+        border: none;
+        border-radius: 45px;
+        box-shadow: 0px 15px 20px #0d539167;
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+        transform: scale(0.9);
+      }
+  
+      .table_head {
+        font-family: "Montserrat", sans-serif;
+        /* border: 3px dotted rgb(55, 168, 149); */
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  
+        /* border-right: 3px dotted rgb(55, 168, 149); */
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-3 text-center table_head">
+      <h5>
+        Result for <%- exam_name %> Examination
+  
+      </h5>
+    </div>
+    <div class="container" id="result">
+      <!-- <h3>
+        Result for exam <span style="color: darkcyan"><%- exam_name %></span> and
+        student <span style="color: rgb(179, 16, 143)"><%- sid %></span>
+      </h3> -->
+
+      <!-- s.no, question, selectedOption, correctOption, points -->
+      <!-- correct, bg green; incorrect, bg red points 0/ -point(negative); not attempted, bg grey selected - points 0; -->
+      <!-- answers -> array of answers; questions -> array of questions; num_answers -->
+
+      <table class="table mt-3">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col" style="width: 10%">s.no</th>
+            <th scope="col" style="width: 40%">question</th>
+            <th scope="col" style="width: 20%">selectedOption</th>
+            <th scope="col" style="width: 20%">correctOption</th>
+            <th scope="col" style="width: 10%">points</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i < num_answers; ++i) { %>
+          <tr name="answer_rows" class="first-row">
+            <td><%- i+1 %></td>
+            <td><%- questions[i].name %></td>
+            <td><%- answers[i].selectedOption %></td>
+            <td><%- answers[i].correct_option %></td>
+            <% if (answers[i].selectedOption === answers[i].correct_option) { %>
+            <td><%- answers[i].points %></td>
+            <% } else { %>
+            <td>0</td>
+            <% } %>
+          </tr>
+          <% } %>
+          <tr
+            style="
+              background-color: black;
+              color: white;
+              font-weight: bolder;
+              font-size: larger;
+            "
+          >
+            <td></td>
+            <td>Total Points</td>
+            <td></td>
+            <td></td>
+            <td><%- total_points %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center">
+      <button class="mt-2 mb-4" id="printButton">Download PDF</button>
+    </div>
+    <!-- <button id="printButton">Print</button> -->
+    <script>
+      var rows = document.getElementsByName("answer_rows");
+      for (var i = 0; i < rows.length; ++i) {
+        rows[i].style.color = "black";
+        if (
+          rows[i].childNodes[5].innerHTML === rows[i].childNodes[7].innerHTML
+        ) {
+          rows[i].style.backgroundColor = "#aad576";
+          rows[i].style.borderColor = "#008000"; //green
+        } else if (
+          rows[i].childNodes[5].innerHTML !== rows[i].childNodes[7].innerHTML
+        ) {
+          if (!rows[i].childNodes[5].innerHTML){
+            rows[i].style.backgroundColor = "#f4f3ee";
+            rows[i].style.borderColor = "#8a817c";
+          }
+            
+          else{
+            rows[i].style.backgroundColor = "#f9b5ac";
+            rows[i].style.borderColor = "#ee4540";
+          } 
+          
+        }
+      }
+      document.getElementById("printButton").addEventListener("click", () => {
+        html2pdf(document.getElementById("result"));
+      });
+      // ------------------------ OPTIONS NAME ----------------------
+
+      // ------------------------- Total Marks Row --------------------
+    </script>
+  </body>
+</html>

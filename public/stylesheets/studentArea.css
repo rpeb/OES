@@ -1,0 +1,31 @@
+.logout {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: flex-end;
+  /* align-items: center; */
+}
+.logout_btn, .upcoming_exams, .past_exams{
+  width: 140px;
+  height: 45px;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  font-weight: 500;
+  text-transform: uppercase;
+  /* color: #fff; */
+  background-color: #1ab2e0;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 15px 20px #0d539167;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  transform: scale(0.9);
+}
+
+.examText {
+  display: flex;
+  /* flex-wrap: wrap; */
+  justify-content: flex-end;
+  /* align-items: center; */
+}

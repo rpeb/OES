@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/stylesheets/studentDashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
+    integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
+    crossorigin="anonymous" />
+  <title>
+    <%- title %>
+  </title>
+</head>
+
+<body>
+  <!-- loop over fields array -->
+  <!-- thead -> all the elements -->
+  <!-- loop over exams -->
+  <!-- loop over exams[i]['exam_details'] -->
+  <!-- tbody -> all the values -->
+  <div class="container mt-3 text-center table_head">
+    <p><strong>Student Name: <%- student_name %></strong></p>
+    <!-- <p><strong>Student Name: John Doe</strong></p> -->
+  </div>
+
+  <div class="container pt-3 my-5 text-center exam_table">
+    <h3>PAST EXAMS</h3>
+    <table class="table">
+      <thead class="thead">
+        <tr>
+          <th>S.No</th>
+          <% for(var i=0; i < fields.length-1; ++i) { %>
+            <th scope="col">
+              <%- fields[i] %>
+            </th>
+            <% } %>
+              <th scope="col">Exam Link</th>
+              <th scope="col">View Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(var i=0; i < examData.length; ++i) { %>
+          <tr>
+            <td>
+              <%- i+1 %>
+            </td>
+            <% for (var j=0; j < (examData[i].exam).length-1; ++j) { %>
+              <% if (j===4) { %>
+                <td class="end_time">
+                  <%- (examData[i].exam)[j] %>
+                </td>
+                <% continue %>
+                  <% } %>
+                    <% if (j===2) { %>
+                      <td class="exam_date">
+                        <%- (examData[i].exam)[j] %>
+                      </td>
+                      <% continue %>
+                        <% } %>
+                          <td>
+                            <%- (examData[i].exam)[j] %>
+                          </td>
+                          <% } %>
+                            <td>
+                              <a href="/exam/<%- examData[i]['_id'] %>/<%- student_id %>" class="examLink">Exam</a>
+                            </td>
+                            <td><a href="#" class="resultLink">Result Page</a></td>
+          </tr>
+          <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    var x = "<%- num_exams %>";
+    var sid = "<%- student_id %>";
+    function timestringToDate(timeString, dateString) {
+      const a = timeString.split(":");
+      const b = dateString.split("/");
+      return new Date(b[2], b[1] - 1, b[0], a[0], a[1]);
+    }
+    window.addEventListener("DOMContentLoaded", (event) => {
+      var rl = document.getElementsByClassName("resultLink");
+      var et = document.getElementsByClassName("end_time");
+      var ed = document.getElementsByClassName("exam_date");
+      var el = document.getElementsByClassName("examLink")
+      for (var i = 0; i < x; ++i) {
+        var d = timestringToDate(et[i].innerHTML, ed[i].innerHTML);
+        if (d.getTime() >= Date.now()) {
+          rl[i].setAttribute("href", "javascript:void(0)");
+          rl[i].setAttribute("style", "color: grey;")
+        } else {
+          var eid = el[i].getAttribute("href").split("/")[2];
+          rl[i].setAttribute("href", `/exam/${eid}/${sid}/getResult`)
+          rl[i].setAttribute("style", "color: blue;")
+        }
+      }
+    });
+  </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

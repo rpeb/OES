@@ -1,0 +1,252 @@
+:root {
+  font-size: 16px;
+  font-family: "Open Sans";
+  --text-primary: #b6b6b6;
+  --text-secondary: #ececec;
+  --bg-primary: #23232e;
+  --bg-secondary: #141418;
+  --transition-speed: 400ms;
+}
+
+body {
+  color: black;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+
+body::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #6649b8;
+}
+
+main {
+  margin-left: 5rem;
+  padding: 1rem;
+}
+
+.navone {
+  position: fixed;
+  background-color: var(--bg-primary);
+  width: 5rem;
+  height: 100vh;
+  transition: width 600ms ease;
+}
+
+.navtwo {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.navbarOptions {
+  width: 100%;
+}
+
+.navone:hover {
+  width: 16rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7);
+  transition: var(--transition-speed);
+}
+
+.nav-links:hover {
+  filter: grayscale(0%) opacity(1);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.link-text {
+  display: none;
+  margin-left: 1rem;
+}
+
+.nav-links svg {
+  width: 2rem;
+  min-width: 2rem;
+  margin: 0 1.5rem;
+}
+
+.fa-primary {
+  color: #ff7eee;
+}
+
+.fa-secondary {
+  color: #df49a6;
+}
+
+.fa-primary,
+.fa-secondary {
+  transition: var(--transition-speed);
+}
+
+.logo {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3ch;
+  width: 100%;
+}
+
+.logo svg {
+  transform: rotate(0deg);
+  transition: var(--transition-speed);
+}
+
+.logo-text {
+  display: inline;
+  position: absolute;
+  left: -999px;
+  transition: var(--transition-speed);
+}
+
+.navone:hover .logo svg {
+  transform: rotate(-180deg);
+}
+
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  .navone {
+    bottom: 0;
+    width: 100vw;
+    height: 5rem;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .navtwo {
+    flex-direction: row;
+  }
+
+  .nav-links {
+    justify-content: center;
+  }
+
+  main {
+    margin: 0;
+    padding-left: 100px;
+  }
+}
+
+/* Large screens */
+@media only screen and (min-width: 600px) {
+  .navone {
+    top: 0;
+    width: 5rem;
+    height: 100vh;
+  }
+
+  .navone:hover .link-text {
+    display: inline;
+  }
+
+  .navone:hover .logo svg {
+    margin-left: 11rem;
+  }
+
+  .navone:hover .logo-text {
+    left: 0px;
+  }
+
+  .upload_btn {
+    width: 140px;
+    height: 45px;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #1ab2e0;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 15px 20px #040c1367;
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    transform: scale(0.9);
+  }
+  .upload_btn:hover{
+    background-color: #1ab2e0;
+    color: #ffffff;
+    box-shadow: 0px 15px 20px #0d539167;
+  }
+  .upload_user_data{
+    font-family: "Montserrat", sans-serif;
+    height: 200px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.233);
+  }
+  .upload_form{
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.233);
+    font-family: "Montserrat", sans-serif;
+    background-color: #f4f9fa;
+  }
+  
+  /* .apart {
+    width: 400px;
+    height: 300px;
+
+    
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+  } */
+}
+
+/* @media only screen and (min-width : 320px) {
+  .container, .container-fluid {
+    padding-left: 100px;  
+  }
+}
+
+@media only screen and (min-width : 480px) {
+  .container, .container-fluid {
+    padding-left: 100px; 
+  }
+}
+
+@media only screen and (min-width : 768px) {
+  .container, .container-fluid {
+    padding-left: 100px;
+  }
+}
+
+@media only screen and (min-width : 992px) {
+  .container, .container-fluid {
+    padding-left: 100px;
+  }
+}
+
+@media only screen and (min-width : 1200px) {
+  .container, .container-fluid {
+    padding-left: 100px;
+  }
+} */
