@@ -32,7 +32,7 @@ const mongoose = require("mongoose");
 const answerSchema = new mongoose.Schema({
     eid: String,
     sid: String,
-    email: {type: String, unique: true},
+    email: {type: String},
     present: {type: Boolean, default: false},
     answers: [
         {
