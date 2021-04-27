@@ -146,7 +146,7 @@
       var present = "<%- present %>"
     
       function show_Elements() {
-        if (invalid_time()) {
+        if (present === "true" || invalid_time()) {
           startTestButton.className = "btn btn-info disabled";
           startTestButton.innerHTML = "Exam Unavailable";
         } else {
