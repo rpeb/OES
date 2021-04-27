@@ -1,3 +1,13 @@
+<!-- 
+
+    Authors: 
+    Ria Rupini, 
+    Maitri Majumder, 
+    Ria Paul, 
+    Prakash Dubey
+
+ -->
+ 
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,7 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title><%- exam_name %></title>
   </head>
 
   <body>
@@ -363,13 +373,14 @@
           console.log(err.message);
         }
       }
-
+      var submitButtonClicked = false;
       async function submitTest() {
         if (
           confirm(
             "Do you want to finish the test? Your progress will be saved."
           )
         ) {
+          submitButtonClicked = true;
           const selectedRadioButton = document.querySelector(
             'input[name="customRadio"]:checked'
           );
@@ -405,15 +416,16 @@
             .catch((err) => console.log(err.message));
           // window.location.href = "/exam/"+eid+"/"+sid+"/getResult";
           alert(result.message);
-          window.location.href = "/student/home";
-        }
+          // window.location.href = "/student/home";
+          window.close();
       }
+    }
 
-      window.addEventListener('beforeunload', () => {
-        if (confirm("Are you sure you want to leave this page?")) {
-          document.getElementById("submitButton").click();
-        }
-      })
+      // window.addEventListener('beforeunload', () => {
+      //   if (confirm("Are you sure you want to leave this page?")) {
+      //     document.getElementById("submitButton").click();
+      //   }
+      // })
 
       // ----------------------- QUESTION BUTTONS LOGIC ---------------------
       var q_button = document.getElementById("q_buttons");
@@ -477,97 +489,168 @@
 
 
       // var countDownDate = new Date("Apr 11, 2021 20:57:00").getTime();
-      var duration_hrs = <%- duration_hrs %>
-      var duration_min = <%- duration_min %>
-      var duration_sec = <%- duration_sec %>
+      // var duration_hrs = <%- duration_hrs %>
+      // var duration_min = <%- duration_min %>
+      // var duration_sec = <%- duration_sec %>
 
       // new Date().now()
       // new Date() -> 01/01/1970
-
+      var end_time = "<%- end_time %>"
+      end_time = new Date(end_time).getTime(); // 16234732987
+      window.addEventListener('load', pageReload);
+      var duration;
+      var start_time = Date.now();
+      var ticker;
+      // called on page refresh
+      function pageReload() {
+        duration = parseInt(sessionStorage.getItem("duration")) || end_time-Date.now();
+        var ticker = setInterval(updateDuration, 1000);
+      }
+      function updateDuration() {
+        var currentTime = Date.now();
+        duration = end_time - currentTime;
+        // render on page
+        var hours = Math.floor(
+          (duration % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        hours = (hours <= 9) ? "0" + hours : hours;
+        var minutes = Math.floor((duration % (1000 * 60 * 60)) / (1000 * 60));
+        minutes = (minutes <= 9) ? "0" + minutes : minutes;
+        var seconds = Math.floor((duration % (1000 * 60)) / 1000);
+        seconds = (seconds <= 9) ? "0" + seconds : seconds;
+        document.getElementById("demo").innerHTML =
+          hours + " : " + minutes + " : " + seconds;
+        if (duration <= 1000) {
+          clearInterval(ticker);
+          autoSubmitTest();
+        }
+        sessionStorage.setItem("duration",duration);
+      }
+      
+/*
       let expiryDate = new Date(new Date().getTime() + duration_hrs*60*60*1000 + duration_min*60*1000 + duration_sec*1000);
-      console.log(expiryDate);
+      // console.log(expiryDate);
       // Update the count down every 1 second
-      var x = setInterval(function () {
-        // Get today's date and time
-        var now = new Date().getTime();
 
-        // Find the distance between now and the count down date
-        var distance = expiryDate - now;
+var saved_countdown = sessionStorage.getItem('saved_countdown');
+
+if(saved_countdown == null) {
+    // Set the time we're counting down to using the time allowed
+    var new_countdown = new Date().getTime() + (expiryDate + 2) * 1000;
+
+    expiryDate = new_countdown;
+    sessionStorage.setItem('saved_countdown', new_countdown);
+} else {
+    expiryDate = saved_countdown;
+}
+
+var x = setInterval(() => {
+
+// Get today's date and time
+var now = new Date().getTime();
+
+// Find the distance between now and the allowed time
+var distance = expiryDate - now;
         //   console.log(distance);
 
         // Time calculations for hours, minutes and seconds
-        var hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+// If the count down is over, write some text 
+if (counter <= 0) {
+    clearInterval(x);
+    localStorage.removeItem('saved_countdown');
+    document.getElementById("demo").innerHTML = "EXPIRED";
+}
+}, 1000);
+*/
 
-        document.getElementById("demo").innerHTML =
-          hours + "h " + minutes + "m " + seconds + "s ";
+      // var x = setInterval(function () {
+      //   // Get today's date and time
+      //   var now = new Date().getTime();
 
-        // Display the result in the element with id="demo"
+      //   // Find the distance between now and the count down date
+      //   var distance = expiryDate - now;
+      //   //   console.log(distance);
 
-        // If the count down is finished, write some text
-        if (distance < 0) {
-          clearInterval(x);
-          document.getElementById("demo").innerHTML = "EXPIRED";
-        }
-      }, 1000);
+      //   // Time calculations for hours, minutes and seconds
+      //   var hours = Math.floor(
+      //     (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      //   );
+      //   var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      //   var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+      //   document.getElementById("demo").innerHTML =
+      //     hours + "h " + minutes + "m " + seconds + "s ";
+
+      //   // Display the result in the element with id="demo"
+
+      //   // If the count down is finished, write some text
+      //   if (distance < 0) {
+      //     clearInterval(x);
+      //     document.getElementById("demo").innerHTML = "EXPIRED";
+      //   }
+      // }, 1000);
+
+
+
+// -------------------------- ALERTS ON EXAM PAGE ------------------------
       var c=0;
-      window.addEventListener("blur", (event)=>{
-        c++;
-        if(c==1){
-          alert("WARNING:You have navigated outside of the test window!!")
+      document.addEventListener("visibilitychange", (event)=>{
+        if (document.visibilityState !== "visible") {
+          c++;
+          if(c==1){
+            alert("WARNING: You have navigated outside of the test window!");
+          }
+          else if(c==2){
+            alert("WARNING: If you leave the test window again your test will be automatically submitted!");
+          }
+          else{
+            autoSubmitTest();
+          }
         }
-        else if(c==2){
-          alert("WARNING:If you leave the test window again your test will be automatically submitted!!! doraisos?")
-        }
-        else{
-          // console.log("inactive");
-          alert("oversmart tor teh beshi ami bujjhos ni chandu??")
-          autoSubmitTest();
-        }
-        
       })
       async function autoSubmitTest() {
-        const selectedRadioButton = document.querySelector(
-          'input[name="customRadio"]:checked'
-        );
-        const selectedOption = selectedRadioButton
-          ? selectedRadioButton.value
-          : "-1";
-        if (selectedOption !== "-1") {
-          document.getElementsByName("q_buttons")[
-            counter - 1
-          ].style.backgroundColor = "#5cb85c";
-          document.getElementsByName("q_buttons")[counter - 1].style.color =
-            "white";
-        }
-        console.log("selected option submitTest(): ", selectedOption);
-        let qid = "";
-        if (counter === 1) {
-          qid = sessionStorage.getItem("qid_zero");
-        } else {
-          qid = sessionStorage.getItem("next_qid");
-        }
-        const result = await fetch(`/exam/submit/${eid}/${sid}`, {
-          method: "POST",
-          body: JSON.stringify({
-            qid: qid,
-            selectedOption,
-            counter: counter,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .catch((err) => console.log(err.message));
-        // window.location.href = "/exam/"+eid+"/"+sid+"/getResult";
-        alert(result.message);
-        window.location.href = "/student/home";
-    }
+        // if (!submitButtonClicked) {
+          alert("Your exam is going to be over! Chaman cheater!")
+          const selectedRadioButton = document.querySelector(
+            'input[name="customRadio"]:checked'
+          );
+          console.log("selectedRadioButton", selectedRadioButton);
+          const selectedOption = selectedRadioButton
+            ? selectedRadioButton.value
+            : "-1";
+          if (selectedOption !== "-1") {
+            document.getElementsByName("q_buttons")[
+              counter - 1
+            ].style.backgroundColor = "#5cb85c";
+            document.getElementsByName("q_buttons")[counter - 1].style.color =
+              "white";
+          }
+          console.log("selected option submitTest(): ", selectedOption);
+          let qid = "";
+          if (counter === 1) {
+            qid = sessionStorage.getItem("qid_zero");
+          } else {
+            qid = sessionStorage.getItem("next_qid");
+          }
+          const result = await fetch(`/exam/submit/${eid}/${sid}`, {
+            method: "POST",
+            body: JSON.stringify({
+              qid: qid,
+              selectedOption,
+              counter: counter,
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .catch((err) => console.log(err.message));
+          // window.location.href = "/exam/"+eid+"/"+sid+"/getResult";
+          alert(result.message);
+        // }
+        window.close();
+      }
     </script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

@@ -1,6 +1,10 @@
-// window.addEventListener("load", () => {
-//   show_addStudent();
-// });
+/* 
+  Authors: 
+  Ria Rupini, 
+  Maitri Majumder, 
+  Ria Paul, 
+  Prakash Dubey 
+*/
 
 function show_addStudent() {
   document.getElementById("addStu").style.display = "block";

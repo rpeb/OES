@@ -1,3 +1,11 @@
+/* 
+  Authors: 
+  Ria Rupini, 
+  Maitri Majumder, 
+  Ria Paul, 
+  Prakash Dubey 
+*/
+
 body{
   background-color: #eff8fc !important;
 }
@@ -57,7 +65,9 @@ body{
 
 #demo{
   background-color: #eff8fc;
-  color: red;
+  color: #ce1f6a;
+  font-weight: bolder;
+  font-family: Consolas, Verdana, Geneva, Tahoma, sans-serif;
   border-radius: 15px;
   width: 200px;
 }

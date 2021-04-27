@@ -1,3 +1,11 @@
+/* 
+  Authors: 
+  Ria Rupini, 
+  Maitri Majumder, 
+  Ria Paul, 
+  Prakash Dubey 
+*/
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 

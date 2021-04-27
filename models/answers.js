@@ -1,33 +1,12 @@
+/* 
+  Authors: 
+  Ria Rupini, 
+  Maitri Majumder, 
+  Ria Paul, 
+  Prakash Dubey 
+*/
+
 const mongoose = require("mongoose");
-
-// const answerSchema = new mongoose.Schema({
-//   eid: String,
-//   result: [
-//     {
-//       sid: { type: String, default: "0" },
-//       present: { type: Boolean, default: false },
-//       answers: [
-//         {
-//           qid: { type: String, default: "-1" },
-//           selectedOption: { type: String, default: "-1" },
-//           correct_option: String,
-//           points: Number,
-//         },
-//       ],
-//       points_scored: { type: Number, default: 0 },
-//       status: {
-//         type: String,
-//         default: "Fail",
-//       },
-//     },
-//   ],
-// });
-
-// const Answer = mongoose.model("Answer", answerSchema);
-
-// module.exports = Answer;
-
-// const mongoose = require('mongoose');
 
 const answerSchema = new mongoose.Schema({
     eid: String,

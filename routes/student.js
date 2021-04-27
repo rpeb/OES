@@ -1,3 +1,11 @@
+/*
+    Authors: 
+    Ria Rupini, 
+    Maitri Majumder, 
+    Ria Paul, 
+    Prakash Dubey
+*/
+
 const router = require("express").Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");
@@ -118,7 +126,6 @@ router.get("/dashboard", isStudent, async (req, res) => {
     }
     // console.log(examData);
     res.render("student/dashboard", {
-      title: "Student - Home",
       student_id,
       student_name,
       fields,
@@ -199,7 +206,6 @@ router.get("/pastExams", async (req, res) => {
     }
     // console.log(examData);
     res.render("student/pastExams", {
-      title: "Student - Home",
       student_id,
       student_name,
       fields,

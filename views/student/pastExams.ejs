@@ -1,3 +1,13 @@
+<!-- 
+
+    Authors: 
+    Ria Rupini, 
+    Maitri Majumder, 
+    Ria Paul, 
+    Prakash Dubey
+
+ -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +20,7 @@
     integrity="sha512-P5MgMn1jBN01asBgU0z60Qk4QxiXo86+wlFahKrsQf37c9cro517WzVSPPV1tDKzhku2iJ2FVgL67wG03SGnNA=="
     crossorigin="anonymous" />
   <title>
-    <%- title %>
+    Student - Past Exams
   </title>
 </head>
 
@@ -36,7 +46,6 @@
               <%- fields[i] %>
             </th>
             <% } %>
-              <th scope="col">Exam Link</th>
               <th scope="col">View Result</th>
         </tr>
       </thead>
@@ -63,9 +72,6 @@
                             <%- (examData[i].exam)[j] %>
                           </td>
                           <% } %>
-                            <td>
-                              <a href="/exam/<%- examData[i]['_id'] %>/<%- student_id %>" class="examLink">Exam</a>
-                            </td>
                             <td><a href="#" class="resultLink">Result Page</a></td>
           </tr>
           <% } %>

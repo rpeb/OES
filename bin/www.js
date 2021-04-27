@@ -4,6 +4,12 @@
  * Module dependencies.
  */
 
+//   Authors: 
+//   Ria Rupini, 
+//   Maitri Majumder, 
+//   Ria Paul, 
+//   Prakash Dubey 
+
 var app = require("../app");
 var debug = require("debug")("test:server");
 var http = require("http");

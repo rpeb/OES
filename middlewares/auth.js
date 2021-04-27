@@ -1,3 +1,11 @@
+/* 
+  Authors: 
+  Ria Rupini, 
+  Maitri Majumder, 
+  Ria Paul, 
+  Prakash Dubey 
+*/
+
 const isAuth = (req,res,next) => {
     if (req.isAuthenticated()) {
         next();

@@ -1,3 +1,11 @@
+/*
+    Authors: 
+    Ria Rupini, 
+    Maitri Majumder, 
+    Ria Paul, 
+    Prakash Dubey
+*/
+
 const router = require("express").Router();
 const { isStudent, isAuth } = require("../middlewares/auth");
 const Exam = require("../models/exam");
@@ -8,6 +16,12 @@ router.get("/:examid/:sid", isStudent, async (req, res) => {
   try {
     const eid = req.params.examid;
     const sid = req.params.sid;
+    const answer_doc = await Answer.findOne({
+      eid,
+      sid
+    });
+    const present = answer_doc.present;
+
     const exam = await Exam.findById(eid);
     const exam_details = exam.exam_details;
 
@@ -25,9 +39,15 @@ router.get("/:examid/:sid", isStudent, async (req, res) => {
     if (duration_min < 10) duration_min = "0" + duration_min;
     if (duration_sec < 10) duration_sec = "0" + duration_sec;
     if (duration_hrs < 10) duration_hrs = "0" + duration_hrs;
-
+    
     const duration = { duration_hrs, duration_min, duration_sec };
-    res.render("exam/landing", { eid, sid, exam_details, duration });
+    res.render("exam/landing", { 
+      eid, 
+      sid, 
+      exam_details, 
+      duration,
+      present
+    });
   } catch (err) {
     console.log(err.message);
   }
@@ -72,7 +92,9 @@ router.get("/:examid/:sid/start", isStudent, async (req, res) => {
       duration_hrs,
       duration_min,
       duration_sec,
+      end_time: exam.exam_details.end_time,
       exam,
+      exam_name: exam.exam_details.examination_name
     });
   } catch (err) {
     console.log(err.message);
@@ -125,7 +147,7 @@ router.post("/:examid/:sid/", async (req, res) => {
   try {
     const { qid, selectedOption, counter } = req.body;
     let answer_doc = await Answer.findOne({ eid: req.params.examid, sid: req.params.sid });
-    
+    // console.log("counter", counter);
     answer_doc.answers[counter - 1].qid = qid ;
     answer_doc.answers[counter - 1].selectedOption = selectedOption;
     

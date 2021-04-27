@@ -1,3 +1,11 @@
+/* 
+  Authors: 
+  Ria Rupini, 
+  Maitri Majumder, 
+  Ria Paul, 
+  Prakash Dubey 
+*/
+
 const Joi = require("joi");
 
 const schemas = {

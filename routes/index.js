@@ -1,3 +1,12 @@
+/*
+    Authors: 
+    Ria Rupini, 
+    Maitri Majumder, 
+    Ria Paul, 
+    Prakash Dubey
+*/
+
+
 const router = require("express").Router();
 const passport = require("passport");
 const bcrypt = require("bcrypt");

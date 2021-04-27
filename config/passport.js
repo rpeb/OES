@@ -1,3 +1,9 @@
+//   Authors: 
+//   Ria Rupini, 
+//   Maitri Majumder, 
+//   Ria Paul, 
+//   Prakash Dubey 
+
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const User = require("../models/user");

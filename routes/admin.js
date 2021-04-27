@@ -1,3 +1,11 @@
+/*
+    Authors: 
+    Ria Rupini, 
+    Maitri Majumder, 
+    Ria Paul, 
+    Prakash Dubey
+*/
+
 const router = require("express").Router();
 const passport = require("passport");
 const { isAdmin } = require("../middlewares/auth");
@@ -157,7 +165,7 @@ router.get("/login", (req, res) => {
 });
 router.get("/logout",(req, res)=>{
   req.logout();
-  res.redirect("login");
+  res.redirect("/commonLogin");
 })
 
 // /admin/login
