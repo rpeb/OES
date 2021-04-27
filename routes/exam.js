@@ -20,7 +20,13 @@ router.get("/:examid/:sid", isStudent, async (req, res) => {
       eid,
       sid
     });
-    const present = answer_doc.present;
+    // const present = answer_doc.present;
+    let present;
+    if (!answer_doc) {
+      present = false;
+    } else {
+      present = answer_doc.present;
+    }
 
     const exam = await Exam.findById(eid);
     const exam_details = exam.exam_details;

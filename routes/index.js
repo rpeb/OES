@@ -90,7 +90,7 @@ router.post("/reset-password", async (req, res) => {
       subject: "Password-Reset OES",
       html: `
       <p>You requested for password reset.</p>
-      <h5>Click on this <a href="${url.local}/reset/${token}">link</a> to reset password. This token is valid only for 1 hours.</h5>
+      <h5>Click on this <a href="${url.remote}/reset/${token}">link</a> to reset password. This token is valid only for 1 hours.</h5>
       `,
     });
     res.json({ message: "check your email" });

@@ -72,7 +72,7 @@
                             <%- (examData[i].exam)[j] %>
                           </td>
                           <% } %>
-                            <td><a href="#" class="resultLink">Result Page</a></td>
+                            <td><a href="/exam/<%- examData[i]['_id'] %>/<%- student_id %>/getResult" class="resultLink">Result Page</a></td>
           </tr>
           <% } %>
       </tbody>
@@ -80,30 +80,30 @@
   </div>
 
   <script>
-    var x = "<%- num_exams %>";
-    var sid = "<%- student_id %>";
-    function timestringToDate(timeString, dateString) {
-      const a = timeString.split(":");
-      const b = dateString.split("/");
-      return new Date(b[2], b[1] - 1, b[0], a[0], a[1]);
-    }
-    window.addEventListener("DOMContentLoaded", (event) => {
-      var rl = document.getElementsByClassName("resultLink");
-      var et = document.getElementsByClassName("end_time");
-      var ed = document.getElementsByClassName("exam_date");
-      var el = document.getElementsByClassName("examLink")
-      for (var i = 0; i < x; ++i) {
-        var d = timestringToDate(et[i].innerHTML, ed[i].innerHTML);
-        if (d.getTime() >= Date.now()) {
-          rl[i].setAttribute("href", "javascript:void(0)");
-          rl[i].setAttribute("style", "color: grey;")
-        } else {
-          var eid = el[i].getAttribute("href").split("/")[2];
-          rl[i].setAttribute("href", `/exam/${eid}/${sid}/getResult`)
-          rl[i].setAttribute("style", "color: blue;")
-        }
-      }
-    });
+    // var x = "<%- num_exams %>";
+    // var sid = "<%- student_id %>";
+    // function timestringToDate(timeString, dateString) {
+    //   const a = timeString.split(":");
+    //   const b = dateString.split("/");
+    //   return new Date(b[2], b[1] - 1, b[0], a[0], a[1]);
+    // }
+    // window.addEventListener("DOMContentLoaded", (event) => {
+    //   var rl = document.getElementsByClassName("resultLink");
+    //   var et = document.getElementsByClassName("end_time");
+    //   var ed = document.getElementsByClassName("exam_date");
+    //   var el = document.getElementsByClassName("examLink")
+    //   for (var i = 0; i < x; ++i) {
+    //     var d = timestringToDate(et[i].innerHTML, ed[i].innerHTML);
+    //     if (d.getTime() >= Date.now()) {
+    //       rl[i].setAttribute("href", "javascript:void(0)");
+    //       rl[i].setAttribute("style", "color: grey;")
+    //     } else {
+    //       var eid = el[i].getAttribute("href").split("/")[2];
+    //       rl[i].setAttribute("href", `/exam/${eid}/${sid}/getResult`)
+    //       rl[i].setAttribute("style", "color: blue;")
+    //     }
+    //   }
+    // });
   </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
