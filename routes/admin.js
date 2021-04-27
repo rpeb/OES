@@ -50,7 +50,7 @@ router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
     let ans = []
     for (var i = 0; i < num_questions; ++i) {
       let tmp = [];
-      for (var j = 0; j < fields.num_options; ++j) {
+      for (var j = 0; j < 4; ++j) {
         tmp.push(question_data[i][`option${j + 1}`]);
         delete question_data[i][`option${j + 1}`];
       }
