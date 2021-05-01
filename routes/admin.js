@@ -102,7 +102,7 @@ router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
           subject: "New Exam Alert",
           html: `
             <h3> Here is your temporary password: ${plainStudentPassword} </h3> <br> <p>
-              A new exam has been added. Login with this email and password to view details of examination.
+              A new exam has been added. <a href="https://oes-trial.herokuapp.com/student/login">Login</a> with this email and password to view details of examination.
             </p>
             `
         })
@@ -113,7 +113,7 @@ router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
           subject: "New Exam Alert",
           html: `
             <p>
-              A new exam has been added. Login to view all your upcoming exams.
+              A new exam has been added. Login <a href="https://oes-trial.herokuapp.com/student/login">here</a> to view all your upcoming exams.
             </p>
             `
         })
@@ -138,7 +138,7 @@ router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
         subject: "Exam Created Successfully",
         html: `
           <h3> Here is your temporary password: ${plainTeacherPassword} </h3> <br> <p>
-          Exam with name: ${fields.examination_name} and subject code: ${fields.subject_code} has been created. </h3> Login to see all upcoming exams.
+          Exam with name: ${fields.examination_name} and subject code: ${fields.subject_code} has been created. </h3> <a href="https://oes-trial.herokuapp.com/teacher/login">Login</a> to see all upcoming exams.
           </p> `
       })
     } else {
@@ -147,7 +147,7 @@ router.post("/create-exam", isAdmin, getStudent, async (req, res) => {
         to: teacher.email,
         subject: "Exam Created",
         html: `
-          <h3> Exam with name: ${fields.examination_name} and subject code: ${fields.subject_code} has been created. </h3> Login to see all upcoming exams.`
+          <h3> Exam with name: ${fields.examination_name} and subject code: ${fields.subject_code} has been created. </h3> <a href="https://oes-trial.herokuapp.com/teacher/login">Login</a> to see all upcoming exams.`
       })
     }
   } catch (err) {

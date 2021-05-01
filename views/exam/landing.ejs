@@ -156,6 +156,7 @@
           var windowFeatures = `menubar=no,location=no,resizable=no,top=0,left=0,width=10000,height=10000,resizable=no,scrollbar=no`;
 
           startTestButton.addEventListener("click", (e) => {
+            window.location.reload();
             window.open(
               e.target.getAttribute("href") + "/start",
               "popup",
